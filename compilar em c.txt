@@ -1,0 +1,4 @@
+Compilar:
+    gcc C/[arquivo].c -o builds/[arquivo]
+rodar:
+    ./build/[arquivo]
