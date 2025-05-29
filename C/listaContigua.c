@@ -48,7 +48,6 @@ int lista_adicionar_final(List *list, int valor) {
 }
 
 int lista_adicionar_posi(List *list, int posi, int valor) {
-    
     if (list->len >= list->size) {
         printf("Faltou espaço\n");
         return -1;
@@ -70,7 +69,6 @@ int lista_adicionar_posi(List *list, int posi, int valor) {
 }
 
 int lista_remover(List *list, int index) {
-    
     if (index < 0 && list->len <= 0) {
         printf("Index inválido\n");
         return -1;
@@ -95,21 +93,43 @@ void lista_mostrar(List *list) {
     printf("\n");
 }
 
+int adicionar_ordem_crescente(List *list, int valor) {
+    if (list->len >= list->size) {
+        printf("Erro ao adicionar item :(\n");
+        return -1;
+    }
+    
+    if (list->len == 0) {
+        lista_adicionar_final(list, valor);
+        return 0;
+    }
+
+    int i = 0;
+
+    while (i > list->len) {
+        if (valor >= list->data[i]) break;
+        i++;
+    }
+
+    lista_adicionar_posi(list, i, valor);
+
+    return 0;
+}
+
+
 int main(int argc, char **argv) {
 
-    List *list = lista_criar(4);
-    lista_adicionar_final(list, 10);
-    lista_adicionar_final(list, 11);
-    lista_adicionar_final(list, 123);
-    
-    lista_adicionar_posi(list, 3, 3);
+    List *list = lista_criar(10);
 
-
-    lista_remover(list, 0);
+    adicionar_ordem_crescente(list, 10);
+    adicionar_ordem_crescente(list, 2);
+    adicionar_ordem_crescente(list, 1);
+    adicionar_ordem_crescente(list, 1);
 
     lista_mostrar(list);
 
     lista_implodir(list);
+
     return 0;
 
 }
