@@ -4,25 +4,19 @@ class Node:
         self.next  = next
 
 class MyLinkedList:
-
     def __init__(self):
-        self.tail = Node()
-        self.head = Node(None, self.tail)
+        self.head = Node(None, None)
 
     def get(self, index: int) -> int:
-
-        pos = self.head
-        
+        pos = self.head.next
         i = 0
-
-        if (index <= 0):
+        if (index < 0):
             return -1
-        
         while pos:
             if i == index:
-                return pos.value        
+                return pos.value
+            i += 1        
             pos = pos.next
-        
         return -1
     
     def addAtHead(self, val: int) -> None:
@@ -30,27 +24,38 @@ class MyLinkedList:
         self.head.next = novo
 
     def addAtTail(self, val: int) -> None:
-        pass
+        pos = self.head
+        while pos.next != None:
+            pos = pos.next
+        new_node = Node(val)
+        pos.next = new_node
 
     def addAtIndex(self, index: int, val: int) -> None:
-        pass
-
-    def deleteAtIndex(self, index: int) -> None:
-        pass
-
-
-    def mostrar(self):
+        if index < 0:
+            index = 0
+        i = 0
         pos = self.head
-        while pos:
-            print(f"{pos.value}", end=" ")
+        while pos != None and i < index:
             pos = pos.next
-        print()
-
-obj = MyLinkedList()
-obj.addAtHead(10)
-obj.addAtHead(20)
-print(obj.get(1))
-obj.mostrar()
+            i += 1
+        if pos == None:
+            return
+        new_node = Node(val, pos.next)
+        pos.next = new_node
+        
+    def deleteAtIndex(self, index: int) -> None:
+        if index < 0:
+            return
+        ant = self.head
+        i = 0
+        while ant.next != None and i < index:
+            ant = ant.next
+            i += 1
+        if ant.next == None:
+            return
+        temp = ant.next
+        ant.next = temp.next
+        del temp
 
 # Your MyLinkedList object will be instantiated and called as such:
 # obj = MyLinkedList()
